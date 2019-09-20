@@ -275,14 +275,38 @@ SomeClass.someTypeMethod()
 
 Within the body of a type method, the implicit `self` property refers to the type itself, rather than an instance of that type. This means that you can use `self` to disambiguate between type properties and type method parameters, just as you do for instance properties and instance method parameters.
 
+---
 
+### 1. Intro
 
+What are the types that we've seen so far in Swift?
 
+<details>
+<summary>Types</summary>
 
+- Int (and its family)
+- Double
+- Float
+- String
+- Character
+- Array
+- Dictionary
+- Range
+- Tuple
+- Function types (e.g (String, Int) -> Void)
+</details>
 
-### 1. Comparing Classes and Structures
+We saw that an Enum gives us more flexibility and customization.  But what if the Swift types we've seen so far is not sufficient for our custom application?   
 
-We've reviewed how to create classes and structs, but what's the difference between them?  Why would we want to make a class instead of a struct?
+We can create *custom* types!
+
+By using Classes and Structs, we can define new types that can hold any information we want and can be manipulated as we choose.
+
+We call Classes and Structs *Objects* and when programming with them, we talk about *Object Oriented Programming* (OOP).
+
+**Structures and classes**
+Structures and classes are general-purpose, flexible constructs that become the building blocks of your program’s code. You define properties and methods to add functionality to your structures and classes using the same syntax you use to define constants, variables, and functions.
+
 
 ### 2. Definition Syntax
 
@@ -687,6 +711,11 @@ Computed properties, including read-only properties must be stored as variables,
 * What are instance methods?
 * What are type methods?
 
+
+
+### 1. Comparing Classes and Structures
+
+We've reviewed how to create classes and structs, but what's the difference between them?  Why would we want to make a class instead of a struct?
 
 ### Standards
 
