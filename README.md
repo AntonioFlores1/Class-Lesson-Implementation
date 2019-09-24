@@ -28,7 +28,7 @@
 
 
 
-### 4. Creating Instances of Structs & Classes
+### 4. Creating Instances of Classes
 
 The `Resolution` structure definition and the `VideoMode` class definition only describe what a `Resolution` or `VideoMode` will look like. They themselves do not describe a *specific* resolution or video mode. To do that, you need to create an instance of the structure or class. Structures and classes both use **initializer syntax** for new instances.
 
@@ -310,15 +310,11 @@ Structures and classes are general-purpose, flexible constructs that become the 
 
 ### 2. Definition Syntax
 
-Classes and structures have a similar definition syntax. You introduce classes with the `class` keyword and structures with the `struct` keyword. Both place their entire definition within a pair of braces.
+Classes have a similar definition syntax as structures. You introduce classes with the `class` keyword Both place their entire definition within a pair of braces.
 
 ```swift
 class SomeClass {
     // class definition goes here
-}
-
-struct SomeStructure {
-    // structure definition goes here
 }
 ```
 
@@ -331,18 +327,9 @@ From the Apple documentation:
 
 ### 3. Stored Properties
 
-Properties are constants and variables encapsulated inside classes and structures.
+Properties are constants and variables encapsulated inside classes.
 
 > From Apple:
-
-```swift
-struct Resolution {
-    var width = 0
-    var height = 0
-}
-```
-
-The keyword *struct* tells us that we are defining a new structure.  Resolution is the name of this struct.  We have defined a Resolution to have two *properties*, width and height.  Type inference sets these properties to Ints, and gives them both an initial value of 0.
 
 ```swift
 class VideoMode {
@@ -359,63 +346,6 @@ The keyword *class* tells us that we are defining a new class named VideoMode.  
 - interlaced: Bool
 - frameRate: Double
 - name: String?
-
-### 2. Structs are Value Types
-
-So far, all of the types we have seen so far are actually structures, and thus are value types. The following definition is directly from the Swift Standard Library.
-
-```Swift
-public struct Bool {
-
-  ...
-
-  public init(_ value: Bool) {
-    self = value
-  }
-}
-```
-
-A structure is a *value type*.  This means that whenever you make a copy of structure, you copy the value that was held by it and create a new object.
-
-
-```swift
-var myBool = false
-var myBoolCopy = myBool
-myBool = true
-print(myBoolCopy)
-```
-
-What will be printed to the console in the example above and why?
-
-<details>
-<summary>Answer</summary>
-
-"false" will be printed to the console.  This is because we copied the **value** *false* and assigned a new object *myBoolCopy* to it.  It is not tied to the original that we copied it from.
-
-</details>
-
-We can see the same behavior in structures that we define ourselves:
-
-```swift
-struct Size {
-  var width = 0.0
-  var height = 0.0
-}
-var sampleSize = Size(width: 5.0, height: 10.0)
-var sampleSizeCopy = sampleSize
-sampleSize.width = 2.0
-print(sampleSizeCopy.width)
-```
-
-What will be printed to the console in the example above and why?
-
-<details>
-<summary>Answer</summary>
-
-"5.0" will be printed to the console.  This is because we copied the **value** *5.0* and assigned a new object * sampleSizeCopy* to it.  It is not tied to the original that we copied it from.
-
-</details>
-
 
 ### 3. Classes are Reference Types
 
@@ -460,53 +390,6 @@ The following visual can serve as a quick reference to summarize the difference 
 ![Pass by Reference vs. Pass by value](https://blog.penjee.com/wp-content/uploads/2015/02/pass-by-reference-vs-pass-by-value-animation.gif)
 
 ---
-
-### 4. Mutating functions
-
-What happens when we rewrite the Counter class as a struct?
-
-```swift
-struct Counter {
-    var count = 0
-
-    func increment() {
-        count += 1
-    }
-    func increment(by amount: Int) {
-        count += amount
-    }
-    func reset() {
-        count = 0
-    }
-}
-```
-
-We notice we get some compiler errors.  They say:
-
->Left side of mutating operator isn't mutable: 'self' is immutable
-
-We can see that we have marked the property count as a variable and not a constant, but we still getting an error.  Why?
-
-Remember that structures are value types.  This means that when a user creates a structure, they expect that it will stay the same value.  If we want to change a property, we have to manually set it ourselves.  It also means that users of a structure will expect that using methods won't change the original information.  If we are breaking this expectation, we need to explicitly mark that in the function with the keyword *mutating*.  Mutating means "to change", so we are indicating this function will change *self*.  Let's update the struct to compile:
-
-```swift
-struct Counter {
-    var count = 0
-
-    mutating func increment() {
-        count += 1
-    }
-    mutating func increment(by amount: Int) {
-        count += amount
-    }
-    mutating func reset() {
-        count = 0
-    }
-}
-```
-
-If you notice that you are having to mark a lot of things as mutating, it might be a good idea to use a class instead of a structure.
-
 
 ### 5. Inheritance
 
