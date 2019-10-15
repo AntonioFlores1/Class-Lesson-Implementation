@@ -146,61 +146,9 @@ struct IdentifyTheError {
 
 </details>
 
-#### Memberwise Initializers (for Structs only!)
-
-Structs automatically get a memberwise initializer.  This allows you to give different values to the properties in an instance of your struct.
-
-```swift
-struct Size {
-    var width = 0.0
-    var height = 0.0
-}
-let twoByTwo = Size(width: 2.0, height: 2.0) //free memberwise initializer provided for all structs
-```
-
-#### Accessing Properties
-
-You can access the properties of an instance using **dot syntax**. In dot syntax, you write the property name immediately after the instance name, separated by a period (.), without any spaces:
-
-```swift
-let losRes = Size(width: 256, height: 144)
-
-print("The width of lowRes is \(lowRes.width)")
-print("The height of lowRes is \(lowRes.height)")
-```
-
-Where have you used dot syntax to refer to a property before?
-
-<details>
-<summary>Examples</summary>
-
-```swift
-let myArr = [1,2,3]
-print(myArr.count)
-
-let myString = "Hello!"
-print(myString.startIndex)
-```
-
-</details>
-
-
 #### let vs var
 
-We can define structs with properties that are either constant or variable.
-
-```swift
-struct User {
-    let name: String
-    var isLoggedIn: Bool
-}
-
-var userOne = User(name: "Adam", isLoggedIn: false)
-userOne.isLoggedIn = true // Changes isLoggedIn to true
-userOne.name = "Beth" //Compile error because name is a let constant
-```
-
-We can also assign classes to constants. Because classes are reference types, we can change properties of a class assigned to a let constant.
+We can define classes with properties that are either constant or variable because classes are reference types, we can change properties of a class assigned to a let constant.
 
 ```swift
 class Dog {
@@ -329,22 +277,6 @@ In practice, if you don’t explicitly write `self`, Swift assumes that you are 
 
 
 __The main exception to this rule occurs when a parameter name for an instance method has the same name as a property of that instance.__
-
-
-Here, `self` makes the difference clear between a method parameter called `x` and an instance property that is also called `x`:
-
-```swift
-struct Point {
-    var x = 0.0
-    var y = 0.0
-    func isToTheRightOf(x: Double) -> Bool {
-        return self.x > x
-    }
-}
-```
-
-Without the `self` prefix, Swift would assume that both uses of `x` referred to the method parameter called `x`.
-
 
 ### 6. Type Methods
 
