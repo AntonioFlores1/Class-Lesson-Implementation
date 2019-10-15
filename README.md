@@ -26,131 +26,6 @@
 
 ---
 
-### 5. Instance methods
-
-Instance methods are functions that belong to instances of a particular class, structure, or enumeration. We use instance methods to change a property of the object, or to generate a new piece of information.
-
-
-What are some instance methods you are familiar with?
-
-<details>
-<summary>Some examples</summary>
-
-- myArr.max()
-- myArr.sort()
-- myString.replacingInstances(of: " ", with: "")
-- myDictionary.updateValue(0.310, forKey: "Derek Jeter")
-</details>
-
-Just like you are used to using instance methods for the structs we've seen so far, we can define instance methods for structs we write ourselves.
-
-[From the Apple documentation](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Methods.html)
-
-```swift
-class Counter {
-    var count = 0
-
-    func increment() {
-        count += 1
-    }
-    func increment(by amount: Int) {
-        count += amount
-    }
-    func reset() {
-        count = 0
-    }
-}
-```
-
-The `Counter` class declares a variable property, `count`, to keep track of the current counter value. In addition, it defines three instance methods:
-
-* `increment()` increments the counter by 1.
-* `increment(by: Int)` increments the counter by a specified integer amount.
-* `reset()` resets the counter to zero.
-
-You call instance methods with the same dot syntax as properties:
-
-```swift
-let myCounter = Counter()
-// the initial counter value is 0
-myCounter.increment()
-// the counter's value is now 1
-myCounter.increment(by: 5)
-// the counter's value is now 6
-myCounter.reset()
-// the counter's value is now 0
-```
-
-#### The `self` Property
-
-Every instance of a type has an implicit property called `self`, which is exactly equivalent to the instance itself. You use the `self` property to refer to the current instance within its own instance methods.
-
-The `increment()` method in the example above could have been written like this:
-
-```swift
-func increment() {
-    self.count += 1
-}
-```
-
-In practice, if you don’t explicitly write `self`, Swift assumes that you are referring to a property or method of the current instance whenever you use a known property or method name within a method.
-
-
-__The main exception to this rule occurs when a parameter name for an instance method has the same name as a property of that instance.__
-
-
-Here, `self` makes the difference clear between a method parameter called `x` and an instance property that is also called `x`:
-
-```swift
-struct Point {
-    var x = 0.0
-    var y = 0.0
-    func isToTheRightOf(x: Double) -> Bool {
-        return self.x > x
-    }
-}
-```
-
-Without the `self` prefix, Swift would assume that both uses of `x` referred to the method parameter called `x`.
-
-
-### 6. Type Methods
-
-Sometimes, we want to use methods on a class itself instead of on an instance of the class.  Take pi for an example.  
-
-```swift
-let radius = 5.0
-let pi = 3.14159265358979
-let circleArea = pi * radius * radius
-```
-
-We could write in the value of pi ourselves, but having to type it in every time would be annoying.  It would be great for that information to be stored somewhere that we could access easily.  And it is!
-
-```swift
-let radius = 5.0
-let pi = Double.pi
-let circleArea = pi * radius * radius
-```
-
-Type methods are methods that are called on the type itself. You indicate type methods by including the `static` keyword immediately before the method's `func` keyword. Type methods can be used in classes, structs, and enumerations. Classes may also use the `class` keyword to allow subclasses to override the superclass’s implementation of that method.
-
-
-Type methods are called with dot syntax, like instance methods. However, you call type methods on the type, not on an instance of that type. Here’s how you call a type method on a class called `SomeClass`:
-
-```swift
-class SomeClass {
-    class func someTypeMethod() {
-        // type method implementation goes here
-    }
-}
-
-SomeClass.someTypeMethod()
-```
-
-Within the body of a type method, the implicit `self` property refers to the type itself, rather than an instance of that type. This means that you can use `self` to disambiguate between type properties and type method parameters, just as you do for instance properties and instance method parameters.
-
----
-
 ### 1. Intro
 
 What are the types that we've seen so far in Swift?
@@ -340,7 +215,7 @@ doggo.isSleepy = true //No errors, doggo.isSleepy is now true
 ```
 
 
-### 3. Classes are Reference Types
+### 5. Classes are Reference Types
 
 
 Unlike value types, reference types are not copied when they are assigned to a variable or constant, or when they are passed to a function. Rather than a copy, a reference to the same existing instance is used instead.
@@ -384,7 +259,133 @@ The following visual can serve as a quick reference to summarize the difference 
 
 ---
 
-### 5. Inheritance
+
+### 5. Instance methods
+
+Instance methods are functions that belong to instances of a particular class, structure, or enumeration. We use instance methods to change a property of the object, or to generate a new piece of information.
+
+
+What are some instance methods you are familiar with?
+
+<details>
+<summary>Some examples</summary>
+
+- myArr.max()
+- myArr.sort()
+- myString.replacingInstances(of: " ", with: "")
+- myDictionary.updateValue(0.310, forKey: "Derek Jeter")
+</details>
+
+Just like you are used to using instance methods for the structs we've seen so far, we can define instance methods for structs we write ourselves.
+
+[From the Apple documentation](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Methods.html)
+
+```swift
+class Counter {
+    var count = 0
+
+    func increment() {
+        count += 1
+    }
+    func increment(by amount: Int) {
+        count += amount
+    }
+    func reset() {
+        count = 0
+    }
+}
+```
+
+The `Counter` class declares a variable property, `count`, to keep track of the current counter value. In addition, it defines three instance methods:
+
+* `increment()` increments the counter by 1.
+* `increment(by: Int)` increments the counter by a specified integer amount.
+* `reset()` resets the counter to zero.
+
+You call instance methods with the same dot syntax as properties:
+
+```swift
+let myCounter = Counter()
+// the initial counter value is 0
+myCounter.increment()
+// the counter's value is now 1
+myCounter.increment(by: 5)
+// the counter's value is now 6
+myCounter.reset()
+// the counter's value is now 0
+```
+
+#### The `self` Property
+
+Every instance of a type has an implicit property called `self`, which is exactly equivalent to the instance itself. You use the `self` property to refer to the current instance within its own instance methods.
+
+The `increment()` method in the example above could have been written like this:
+
+```swift
+func increment() {
+    self.count += 1
+}
+```
+
+In practice, if you don’t explicitly write `self`, Swift assumes that you are referring to a property or method of the current instance whenever you use a known property or method name within a method.
+
+
+__The main exception to this rule occurs when a parameter name for an instance method has the same name as a property of that instance.__
+
+
+Here, `self` makes the difference clear between a method parameter called `x` and an instance property that is also called `x`:
+
+```swift
+struct Point {
+    var x = 0.0
+    var y = 0.0
+    func isToTheRightOf(x: Double) -> Bool {
+        return self.x > x
+    }
+}
+```
+
+Without the `self` prefix, Swift would assume that both uses of `x` referred to the method parameter called `x`.
+
+
+### 6. Type Methods
+
+Sometimes, we want to use methods on a class itself instead of on an instance of the class.  Take pi for an example.  
+
+```swift
+let radius = 5.0
+let pi = 3.14159265358979
+let circleArea = pi * radius * radius
+```
+
+We could write in the value of pi ourselves, but having to type it in every time would be annoying.  It would be great for that information to be stored somewhere that we could access easily.  And it is!
+
+```swift
+let radius = 5.0
+let pi = Double.pi
+let circleArea = pi * radius * radius
+```
+
+Type methods are methods that are called on the type itself. You indicate type methods by including the `static` keyword immediately before the method's `func` keyword. Type methods can be used in classes, structs, and enumerations. Classes may also use the `class` keyword to allow subclasses to override the superclass’s implementation of that method.
+
+
+Type methods are called with dot syntax, like instance methods. However, you call type methods on the type, not on an instance of that type. Here’s how you call a type method on a class called `SomeClass`:
+
+```swift
+class SomeClass {
+    class func someTypeMethod() {
+        // type method implementation goes here
+    }
+}
+
+SomeClass.someTypeMethod()
+```
+
+Within the body of a type method, the implicit `self` property refers to the type itself, rather than an instance of that type. This means that you can use `self` to disambiguate between type properties and type method parameters, just as you do for instance properties and instance method parameters.
+
+
+
+### 6. Inheritance
 
 A class can inherit methods, properties, and other characteristics from another class. When one class inherits from another, the inheriting class is known as a __subclass__, and the class it inherits from is known as its __superclass__.
 
@@ -479,7 +480,7 @@ train.makeNoise()
 
 When you create a new instance of `Train` and call its `makeNoise()` method, you can see that the `Train` subclass version of the method is called.
 
-### 6. Computed Properties
+### 7. Computed Properties
 
 Computed properties do not actually store a value. They actually _compute_ a value by providing a __getter__, and an optional __setter__, to retrieve and set other properties and values indirectly (rather than storing values directly).
 
@@ -579,7 +580,7 @@ Computed properties, including read-only properties must be stored as variables,
 
 
 
-### 7. Review and Wrapup
+### 8. Review and Wrapup
 
 * How can we create a struct/class definition?
 * How can we create an instance of a struct/class?
