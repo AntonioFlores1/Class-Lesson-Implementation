@@ -26,132 +26,6 @@
 
 ---
 
-
-
-### 4. Creating Instances of Classes
-
-The `Resolution` structure definition and the `VideoMode` class definition only describe what a `Resolution` or `VideoMode` will look like. They themselves do not describe a *specific* resolution or video mode. To do that, you need to create an instance of the structure or class. Structures and classes both use **initializer syntax** for new instances.
-
-We have already seen an initializer in the example above:
-
-```
-class VideoMode {
-    var resolution = Resolution()
-	...
-```
-
-Where have you seen this syntax before?
-
-<details>
-<summary>Some examples</summary>
-
-- `let emptyArr = [Int]()`
-- `let emptyString = String()`
-- `let zero = Int()`
-
-</details>
-
-#### Default Initializers
-In a default initializer, the name of the type is followed by empty parentheses. You can use default initializers when your types either don’t have any stored properties, or when all of the type’s stored properties have default values. This holds true for both structures and classes.
-
-```swift
-let someResolution = Resolution()
-let someVideoMode = VideoMode()
-```
-
-Declaring an optional stored property as a constant (without an initial value) will inhibit you from using a default initializer.
-
-Why does the following struct give you an error at compile-time?
-
-```
-struct IdentifyTheError {
-	var propertyOne: String?
-	let propertyTwo: String?
-}
-
-```
-
-<details>
-<summary>Solution</summary>
-
-`propertyOne` is a variable, so the compiler can give it an initial value of `nil` and knows that you can change it to a `String` later.  `propertyTwo` is a constant.  The compiler could give it an initial value of `nil`, but then you couldn't change it later.  This would be kind of strange, so the compiler doesn't give it an initial value, and you need to supply your own.
-
-</details>
-
-#### Memberwise Initializers (for Structs only!)
-
-Structs automatically get a memberwise initializer.  This allows you to give different values to the properties in an instance of your struct.
-
-```swift
-struct Size {
-    var width = 0.0
-    var height = 0.0
-}
-let twoByTwo = Size(width: 2.0, height: 2.0) //free memberwise initializer provided for all structs
-```
-
-#### Accessing Properties
-
-You can access the properties of an instance using **dot syntax**. In dot syntax, you write the property name immediately after the instance name, separated by a period (.), without any spaces:
-
-```swift
-let losRes = Size(width: 256, height: 144)
-
-print("The width of lowRes is \(lowRes.width)")
-print("The height of lowRes is \(lowRes.height)")
-```
-
-Where have you used dot syntax to refer to a property before?
-
-<details>
-<summary>Examples</summary>
-
-```swift
-let myArr = [1,2,3]
-print(myArr.count)
-
-let myString = "Hello!"
-print(myString.startIndex)
-```
-
-</details>
-
-
-#### let vs var
-
-We can define structs with properties that are either constant or variable.
-
-```swift
-struct User {
-    let name: String
-    var isLoggedIn: Bool
-}
-
-var userOne = User(name: "Adam", isLoggedIn: false)
-userOne.isLoggedIn = true // Changes isLoggedIn to true
-userOne.name = "Beth" //Compile error because name is a let constant
-```
-
-We can also assign structs and classes to constants.  Because structs are value types, we can't change properties of a struct assigned to a let constant.  Because classes are reference types, we can change properties of a class assigned to a let constant.
-
-```swift
-struct User {
-    let name: String
-    var isLoggedIn: Bool
-}
-
-class Dog {
-    let numberOfLegs: Int = 4
-    var isSleepy: Bool = false
-}
-
-let userOne = User(name: "Adam", isLoggedIn: false)
-userOne.isLoggedIn = true // Compile-time error: userOne is a let constant
-
-let doggo = Dog()
-doggo.isSleepy = true //No errors, doggo.isSleepy is now true
-```
-
 ### 5. Instance methods
 
 Instance methods are functions that belong to instances of a particular class, structure, or enumeration. We use instance methods to change a property of the object, or to generate a new piece of information.
@@ -346,6 +220,125 @@ The keyword *class* tells us that we are defining a new class named VideoMode.  
 - interlaced: Bool
 - frameRate: Double
 - name: String?
+
+
+
+
+### 4. Creating Instances of Classes
+
+The `VideoMode` class definition only describe what a `VideoMode` will look like. They themselves do not describe a *specific* video mode. To do that, you need to create an instance of the class. Classes use **initializer syntax** for new instances.
+
+We have already seen an initializer in the example above:
+
+```
+class VideoMode {
+    var resolution = Resolution()
+	...
+```
+
+Where have you seen this syntax before?
+
+<details>
+<summary>Some examples</summary>
+
+- `let emptyArr = [Int]()`
+- `let emptyString = String()`
+- `let zero = Int()`
+
+</details>
+
+#### Default Initializers
+In a default initializer, the name of the type is followed by empty parentheses. You can use default initializers when your types either don’t have any stored properties, or when all of the type’s stored properties have default values. This holds true for both structures and classes.
+
+```swift
+let someVideoMode = VideoMode()
+```
+
+Declaring an optional stored property as a constant (without an initial value) will inhibit you from using a default initializer.
+
+Why does the following struct give you an error at compile-time?
+
+```
+struct IdentifyTheError {
+	var propertyOne: String?
+	let propertyTwo: String?
+}
+
+```
+
+<details>
+<summary>Solution</summary>
+
+`propertyOne` is a variable, so the compiler can give it an initial value of `nil` and knows that you can change it to a `String` later.  `propertyTwo` is a constant.  The compiler could give it an initial value of `nil`, but then you couldn't change it later.  This would be kind of strange, so the compiler doesn't give it an initial value, and you need to supply your own.
+
+</details>
+
+#### Memberwise Initializers (for Structs only!)
+
+Structs automatically get a memberwise initializer.  This allows you to give different values to the properties in an instance of your struct.
+
+```swift
+struct Size {
+    var width = 0.0
+    var height = 0.0
+}
+let twoByTwo = Size(width: 2.0, height: 2.0) //free memberwise initializer provided for all structs
+```
+
+#### Accessing Properties
+
+You can access the properties of an instance using **dot syntax**. In dot syntax, you write the property name immediately after the instance name, separated by a period (.), without any spaces:
+
+```swift
+let losRes = Size(width: 256, height: 144)
+
+print("The width of lowRes is \(lowRes.width)")
+print("The height of lowRes is \(lowRes.height)")
+```
+
+Where have you used dot syntax to refer to a property before?
+
+<details>
+<summary>Examples</summary>
+
+```swift
+let myArr = [1,2,3]
+print(myArr.count)
+
+let myString = "Hello!"
+print(myString.startIndex)
+```
+
+</details>
+
+
+#### let vs var
+
+We can define structs with properties that are either constant or variable.
+
+```swift
+struct User {
+    let name: String
+    var isLoggedIn: Bool
+}
+
+var userOne = User(name: "Adam", isLoggedIn: false)
+userOne.isLoggedIn = true // Changes isLoggedIn to true
+userOne.name = "Beth" //Compile error because name is a let constant
+```
+
+We can also assign classes to constants. Because classes are reference types, we can change properties of a class assigned to a let constant.
+
+```swift
+class Dog {
+    let numberOfLegs: Int = 4
+    var isSleepy: Bool = false
+}
+
+let doggo = Dog()
+doggo.isSleepy = true //No errors, doggo.isSleepy is now true
+```
+
 
 ### 3. Classes are Reference Types
 
