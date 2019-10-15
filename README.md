@@ -1,6 +1,4 @@
-# Class-Lesson-Implementation
-
-### Classes 
+# Classes
 ---
 
 ### Objectives
